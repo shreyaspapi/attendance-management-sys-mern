@@ -25,6 +25,7 @@ class Admin extends Component {
     super(props);
 
     this.deleteAttendance = this.deleteAttendance.bind(this);
+    this.onStartClick = this.onStartClick.bind(this);
 
     this.state = {
         dates: [],
@@ -51,6 +52,17 @@ class Admin extends Component {
          })
 
   }
+  onStartClick(){
+    let dates = this.state.dates;
+    console.log(dates)
+    axios.post("/api/users/createattendance").then(res => {
+      dates.push({_id: res.data._id, date: res.data.date})
+      this.setState({ dates: dates })
+    }).catch((error) => {
+      console.log("Date already exists");
+    })
+
+  }
 
   attendanceList() {
       return this.state.dates.map(el => {
@@ -65,6 +77,20 @@ class Admin extends Component {
         <div className="col s12 center-align">
             <h4 >Attendance</h4>
         </div>
+
+        <button
+              style={{
+                  width: "150px",
+                  height: "50px",
+                  borderRadius: "3px",
+                  letterSpacing: "1.5px",
+                  marginTop: "1rem",
+                }}
+              onClick={this.onStartClick}
+              className="btn waves-effect waves-light hoverable blue accent-3"
+            >
+              Start
+            </button>
 
         <table className="table">
           <thead className="thead-light">
