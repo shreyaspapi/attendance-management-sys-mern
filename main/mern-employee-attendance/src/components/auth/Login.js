@@ -4,29 +4,32 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 import classnames from "classnames";
+import axios from 'axios';
 class Login extends Component {
   constructor() {
     super();
     this.state = {
       email: "",
       password: "",
-      errors: {}
+      errors: {},
+      type: ""
     };
   }
 componentDidMount() {
     // If logged in and user navigates to Login page, should redirect them to dashboard
     if (this.props.auth.isAuthenticated) {
-      if(this.props.auth.user.type === 'E')
-        this.props.history.push("/dashboard");
-      else this.props.history.push("/admin");
+      if(this.props.auth.user.name === 'Admin')
+        this.props.history.push("/admin");
+      else this.props.history.push("/dashboard");
 
     }
 }
 componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      if(this.props.auth.user.type === 'E')
-        this.props.history.push("/dashboard");
-      else this.props.history.push("/admin"); // push user to dashboard when they login
+      console.log(nextProps.auth.user.name)
+      if(nextProps.auth.user.name === 'Admin')
+        this.props.history.push("/admin");
+      else this.props.history.push("/dashboard"); // push user to dashboard when they login
     }
 if (nextProps.errors) {
       this.setState({

@@ -130,12 +130,23 @@ router.route('/:id').delete((req, res) => {
 router.route('/update/:id').post((req, res) => {
   Attendance.findById(req.params.id)
     .then(attendance => {
-      attendance.attendance = req.body.attendance;
-      exercise.save()
+      req.body.attendance.forEach(el => {
+        attendance.attendance.forEach(ele => {
+          if(String(ele._id) === el){
+            if(ele.marking === true) {
+              ele.marking = false
+              console.log("false")
+            } else {
+              ele.marking = true
+              console.log("true")
+            }
+          }
+        })
+      })
+      attendance.save()
         .then(() => res.json('Attendance updated!'))
-        .catch(err => res.status(400).json('Error: ' + err));
     })
-    .catch(err => res.status(400).json('Error: ' + err));
+        .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/getattendance/:id').get((req, res) => {
@@ -199,7 +210,6 @@ router.post("/createattendance", (req, res) => {
 
 router.post("/attendancebydateid/:id", (req, res) => {
   let id = req.params.id
-  console.log(id)
   Attendance.findById(id, 'attendance').then(attendance => {
     // user exists
     res.json(attendance)
@@ -207,33 +217,4 @@ router.post("/attendancebydateid/:id", (req, res) => {
   });
 });
 
-// Delete Later
-router.post("/createattendancetemp", (req, res) => {
-
-  const date = curday("-");
-  Attendance.findOne({ date }).then(attendance => {
-    // user exists
-
-      const type = "E";
-      User.find({ type }, 'email').then(data => {
-
-      var attendance = [];
-
-      data.forEach(ele => attendance.push({ email: ele["email"], marking: false }));
-
-      const newAttendance = new Attendance({
-        date: req.body.date,
-        attendance: attendance
-      });
-
-      newAttendance.save().then(att => res.json(att)).catch(err => console.log(err));
-
-    })
-
-  });
-});
-
-
-
-
-  module.exports = router;
+module.exports = router;

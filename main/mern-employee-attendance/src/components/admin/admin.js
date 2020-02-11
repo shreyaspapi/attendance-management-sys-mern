@@ -17,6 +17,10 @@ const Attendance = props => (
 
 
 class Admin extends Component {
+  onLogoutClick = e => {
+    e.preventDefault();
+    this.props.logoutUser();
+  };
   constructor(props) {
     super(props);
 
@@ -57,9 +61,11 @@ class Admin extends Component {
   render() {
     return (
       <React.Fragment>
+
         <div className="col s12 center-align">
             <h4 >Attendance</h4>
         </div>
+
         <table className="table">
           <thead className="thead-light">
             <tr>
