@@ -6,9 +6,7 @@ Employee Attendance Management System using MERN Stack (NodeJS, ReactJS, Express
 2. Change attendance based on date
 3. Delete attendance
 
-An admin can only start attendance once ever day.
-
-More features will me coming in future...
+An admin can only start attendance once ever day. There are lot more things that could have been possible to implement, Due to time constraint and learning period the project is made in 3 days.
 
 ## Quick Start
 
@@ -25,7 +23,7 @@ cd backend && npm run client
 # Server runs on http://localhost:5000 and client on http://localhost:3000
 ```
 
-You will need to create a keys_dev.js in the server config folder with
+You will need to create a keys.js in the backend config folder with
 
 ```
 module.exports = {
