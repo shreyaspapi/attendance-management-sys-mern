@@ -34,8 +34,6 @@ module.exports = {
 
 ## App Info
 
-Demo URL : http://mern-attendance.shreyasp.me/
-
 Admin Username: admin@admin.com
 Password : admin123
 
